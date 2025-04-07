@@ -1,7 +1,7 @@
 // src/pages/Invoices.tsx
 import { useEffect, useState } from 'react';
 import { ArrowDownToLine } from 'lucide-react';
-import { useClient } from '@/context/ClientContext';
+import { useClient } from '@/hooks/useClient';
 import { getInvoicesByClient } from '@/services/invoiceService';
 import { Invoice } from '@/types/invoice';
 import { Button } from '@/components/ui/button';

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useClient } from "@/context/ClientContext"
+import { useClient } from '@/hooks/useClient';
 import { getInvoicesByClient } from "@/services/invoiceService"
 
 export default function Login() {

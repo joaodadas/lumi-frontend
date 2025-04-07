@@ -10,7 +10,7 @@ import {
 import { DollarSign, Zap, Leaf, PiggyBank, FileText } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useClient } from '@/context/ClientContext';
+import { useClient } from '@/hooks/useClient';
 import {
   getDashboardTotals,
   getMonthlyTotals,

@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+// Este arquivo define APENAS o Provider
+import { createContext, useEffect, useState, ReactNode } from "react";
 
 interface ClientContextType {
   clientNumber: string | null;
@@ -29,10 +30,3 @@ export const ClientProvider = ({ children }: { children: ReactNode }) => {
     </ClientContext.Provider>
   );
 };
-
-export const useClient = () => {
-  const context = useContext(ClientContext);
-  if (!context) throw new Error("useClient must be used within a ClientProvider");
-  return context;
-};
-
