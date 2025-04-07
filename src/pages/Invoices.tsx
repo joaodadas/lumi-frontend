@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { API_BASE_URL } from '@/lib/config'; // 👈 CORREÇÃO AQUI
 
 const monthOrder = [
   'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN',
@@ -99,9 +100,7 @@ export default function Invoices() {
                   </td>
                   <td className="py-3 px-4">
                     <a
-                      href={`${
-                        import.meta.env.VITE_API_BASE_URL
-                      }/invoices/download/${clientNumber}/${invoice.referenceMonth}`}
+                      href={`${API_BASE_URL}/invoices/download/${clientNumber}/${invoice.referenceMonth}`}
                       download
                       target="_blank"
                       rel="noopener noreferrer"

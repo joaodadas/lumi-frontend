@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "test": "jest",
+    "test": "NODE_OPTIONS=--no-warnings jest",
     "lint": "eslint .",
     "preview": "vite preview"
   },

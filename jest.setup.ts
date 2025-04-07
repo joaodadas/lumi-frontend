@@ -1,8 +1,14 @@
 import '@testing-library/jest-dom';
+import { TextEncoder, TextDecoder } from 'util';
 
-// Mock import.meta.env para não quebrar durante testes
-Object.defineProperty(import.meta, 'env', {
-  value: {
-    VITE_API_BASE_URL: 'http://localhost:3000',
-  },
-});
+global.TextEncoder = TextEncoder as any;
+global.TextDecoder = TextDecoder as any;
+
+// Mock ResizeObserver (necessário para Recharts e testes com responsividade)
+class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+(global as any).ResizeObserver = ResizeObserver;

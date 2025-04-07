@@ -1,7 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { TextEncoder, TextDecoder } from 'util';
+global.TextEncoder = TextEncoder as any;
+global.TextDecoder = TextDecoder as any;
+
 import { render, screen, fireEvent } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Login from '@/pages/Login';
 import { ClientProvider } from '@/context/ClientContext';
+
+jest.mock('@/services/invoiceService', () => ({
+  getInvoicesByClient: jest.fn().mockResolvedValue([]),
+}));
 
 describe('Login Page', () => {
   test('renderiza input e botão', () => {
