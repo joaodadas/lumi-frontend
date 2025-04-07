@@ -6,7 +6,10 @@ Interface web para consulta de faturas de energia elétrica e visualização de 
 
 Este é o **frontend do projeto Lumi**, uma plataforma que permite que usuários consultem suas faturas de energia elétrica através do número de instalação, visualizando informações como consumo, economia com GD e valores mensais. A interface foi construída com foco em simplicidade, visual escuro moderno e navegação intuitiva.
 
-📦 **Produção (em breve)**: [https://lumi-frontend.vercel.app](https://lumi-frontend.vercel.app)  
+📦 **Produção**: [https://lumi-frontend-tau.vercel.app/](https://lumi-frontend-tau.vercel.app/)  
+**Numeros de Faturas** -> 
+**7204076116** /
+**7202210726**
 
 ---
 
@@ -109,7 +112,7 @@ npm test -- --coverage
 - [x] Tela de faturas com filtro por mês e download  
 - [x] Visual escuro e responsivo  
 - [x] Testes automatizados com cobertura mínima exigida  
-- [ ] Deploy da aplicação (em breve)  
+- [x] Deploy da aplicação 
 
 ---
 
