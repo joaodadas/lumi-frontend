@@ -7,9 +7,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+import { DollarSign, Zap, Leaf, PiggyBank, FileText } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowDownToLine } from 'lucide-react';
 import { useClient } from '@/context/ClientContext';
 import {
   getDashboardTotals,
@@ -18,35 +18,36 @@ import {
 import { getInvoicesByClient } from '@/services/invoiceService';
 import { DashboardTotals, MonthlyTotal } from '@/types/dashboard';
 import { Invoice } from '@/types/invoice';
-import { downloadInvoicePdf } from '@/utils/downloadInvoicePdf';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
   const { clientNumber } = useClient();
   const [totals, setTotals] = useState<DashboardTotals | null>(null);
   const [monthlyData, setMonthlyData] = useState<MonthlyTotal[]>([]);
-  const [invoices, setInvoices] = useState<Invoice[]>([]);
-  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const monthOrder = [
-    'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN',
-    'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ',
+    'JAN',
+    'FEV',
+    'MAR',
+    'ABR',
+    'MAI',
+    'JUN',
+    'JUL',
+    'AGO',
+    'SET',
+    'OUT',
+    'NOV',
+    'DEZ',
   ];
 
   useEffect(() => {
     const fetchData = async () => {
       if (!clientNumber) return;
       try {
-        const [totalsRes, monthlyRes, invoiceRes] = await Promise.all([
+        const [totalsRes, monthlyRes] = await Promise.all([
           getDashboardTotals(clientNumber),
           getMonthlyTotals(clientNumber),
-          getInvoicesByClient(clientNumber),
         ]);
 
         const sortedMonthly = [...monthlyRes].sort((a, b) => {
@@ -57,7 +58,6 @@ export default function Dashboard() {
 
         setTotals(totalsRes);
         setMonthlyData(sortedMonthly);
-        setInvoices(invoiceRes);
       } catch (err) {
         console.error('Erro ao carregar dados do dashboard:', err);
       }
@@ -67,59 +67,72 @@ export default function Dashboard() {
 
   return (
     <main className="min-h-screen bg-neutral-950 text-white px-6 py-10">
-      <h1 className="text-3xl font-bold mb-8">Dashboard</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Dashboard</h1>
+        <Button
+          variant="outline"
+          className="border border-white text-black hover:bg-gray-200 hover:border-gray-200"
+          onClick={() => navigate('/invoices')}
+        >
+          <FileText className="mr-2 h-4 w-4" /> Ver Faturas
+        </Button>
+      </div>
 
       {/* Grid de cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <Card className="bg-neutral-900 border border-neutral-800 rounded-2xl shadow px-6 py-4">
+        <Card className="bg-neutral-900 border border-neutral-800 rounded-2xl shadow px-6 py-4 relative">
+          <DollarSign className="absolute top-4 right-4 text-white" />
           <CardHeader className="p-0">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-white">
               Energia consumida
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0 pt-2">
-            <p className="text-2xl font-bold tracking-tight">
+            <p className="text-2xl font-bold tracking-tight text-white">
               {totals ? `${totals.totalEnergyConsumed} kWh` : '--'}
             </p>
+            <p className="text-sm text-white">+5% este mês</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-neutral-900 border border-neutral-800 rounded-2xl shadow px-6 py-4">
+        <Card className="bg-neutral-900 border border-neutral-800 rounded-2xl shadow px-6 py-4 relative">
+          <Zap className="absolute top-4 right-4 text-white" />
           <CardHeader className="p-0">
-            <CardTitle className="text-sm text-muted-foreground">
-              Compensada
-            </CardTitle>
+            <CardTitle className="text-sm text-white">Compensada</CardTitle>
           </CardHeader>
           <CardContent className="p-0 pt-2">
-            <p className="text-2xl font-bold tracking-tight">
+            <p className="text-2xl font-bold tracking-tight text-white">
               {totals ? `${totals.totalCompensatedEnergy} kWh` : '--'}
             </p>
+            <p className="text-sm text-white">+8% este mês</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-neutral-900 border border-neutral-800 rounded-2xl shadow px-6 py-4">
+        <Card className="bg-neutral-900 border border-neutral-800 rounded-2xl shadow px-6 py-4 relative">
+          <Leaf className="absolute top-4 right-4 text-white" />
           <CardHeader className="p-0">
-            <CardTitle className="text-sm text-muted-foreground">
-              Valor sem GD
-            </CardTitle>
+            <CardTitle className="text-sm text-white">Valor sem GD</CardTitle>
           </CardHeader>
           <CardContent className="p-0 pt-2">
-            <p className="text-2xl font-bold tracking-tight">
+            <p className="text-2xl font-bold tracking-tight text-white">
               {totals ? `R$ ${totals.totalValueWithoutGD.toFixed(2)}` : '--'}
             </p>
+            <p className="text-sm text-white">+4% este mês</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-neutral-900 border border-neutral-800 rounded-2xl shadow px-6 py-4">
+        <Card className="bg-neutral-900 border border-neutral-800 rounded-2xl shadow px-6 py-4 relative">
+          <PiggyBank className="absolute top-4 right-4 text-white" />
           <CardHeader className="p-0">
-            <CardTitle className="text-sm text-muted-foreground">
+            <CardTitle className="text-sm text-white">
               Economia com GD
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0 pt-2">
-            <p className="text-2xl font-bold tracking-tight">
+            <p className="text-2xl font-bold tracking-tight text-white">
               {totals ? `R$ ${totals.totalGDSavings.toFixed(2)}` : '--'}
             </p>
+            <p className="text-sm text-white">+12% este mês</p>
           </CardContent>
         </Card>
       </div>
@@ -165,88 +178,6 @@ export default function Dashboard() {
             />
           </BarChart>
         </ResponsiveContainer>
-      </div>
-
-      {/* Filtro e tabela */}
-      <div className="mt-10 bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
-        <h2 className="text-xl font-semibold mb-4 text-white">
-          Faturas Recentes
-        </h2>
-
-        {/* Filtro por mês */}
-        <div className="flex items-center gap-4 mb-4">
-          <label htmlFor="month" className="text-sm text-white">
-            Filtrar por mês:
-          </label>
-          <Select
-            onValueChange={(value) => setSelectedMonth(value)}
-            value={selectedMonth ?? ''}
-          >
-            <SelectTrigger className="w-[180px] bg-neutral-800 border border-neutral-700 text-white">
-              <SelectValue placeholder="Selecione o mês" />
-            </SelectTrigger>
-            <SelectContent className="bg-neutral-800 text-white border border-neutral-700">
-              <SelectItem value="">Todos</SelectItem>
-              {monthOrder.map((month) => (
-                <SelectItem key={month} value={month}>
-                  {month}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Tabela */}
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-gray-300">
-            <thead className="border-b border-neutral-800">
-              <tr>
-                <th className="py-3 px-4">Mês</th>
-                <th className="py-3 px-4">Energia (kWh)</th>
-                <th className="py-3 px-4">Valor s/ GD</th>
-                <th className="py-3 px-4">Download</th>
-              </tr>
-            </thead>
-            <tbody>
-              {invoices
-                .filter((invoice) =>
-                  selectedMonth
-                    ? invoice.referenceMonth.startsWith(selectedMonth)
-                    : true
-                )
-                .map((invoice) => (
-                  <tr
-                    key={invoice.id}
-                    className="border-b border-neutral-800 hover:bg-neutral-800 transition"
-                  >
-                    <td className="py-3 px-4">{invoice.referenceMonth}</td>
-                    <td className="py-3 px-4">
-                      {invoice.totalEnergyConsumption} kWh
-                    </td>
-                    <td className="py-3 px-4">
-                      R$ {invoice.totalValueWithoutGD.toFixed(2)}
-                    </td>
-                    <td className="py-3 px-4">
-                      <a
-                        href={`${
-                          import.meta.env.VITE_API_BASE_URL
-                        }/invoices/download/${clientNumber}/${
-                          invoice.referenceMonth
-                        }`}
-                        download
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Button variant="ghost" size="icon">
-                          <ArrowDownToLine className="w-4 h-4" />
-                        </Button>
-                      </a>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
       </div>
     </main>
   );
