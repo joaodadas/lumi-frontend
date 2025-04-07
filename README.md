@@ -8,6 +8,8 @@ Este é o **frontend do projeto Lumi**, uma plataforma que permite que usuários
 
 📦 **Produção (em breve)**: [https://lumi-frontend.vercel.app](https://lumi-frontend.vercel.app)  
 
+---
+
 ## 🧰 Tecnologias
 
 - React + TypeScript  
@@ -18,8 +20,9 @@ Este é o **frontend do projeto Lumi**, uma plataforma que permite que usuários
 - React Router  
 - Context API  
 - Axios  
-- Jest (em configuração)
+- Jest + React Testing Library  
 
+---
 
 ## 🔹 Como Rodar Localmente
 
@@ -40,6 +43,7 @@ VITE_API_BASE_URL=https://lumi-backend-oj5j.onrender.com
 npm run dev
 ```
 
+---
 
 ## 🌐 Navegação da Aplicação
 
@@ -63,6 +67,28 @@ npm run dev
 
 ---
 
+## 🧪 Testes Automatizados
+
+A aplicação possui testes automatizados com Jest para as seguintes páginas:
+
+- ✅ **Login Page**: valida presença de elementos e erros de input.
+- ✅ **Dashboard Page**: valida renderização de cards e botão de navegação.
+- ✅ **Invoices Page**: valida título, filtro e dados mockados da tabela de faturas.
+
+Para rodar os testes:
+
+```bash
+npm test
+```
+
+Opcionalmente, para visualizar a cobertura:
+
+```bash
+npm test -- --coverage
+```
+
+---
+
 ## 📷 Prints da Aplicação
 
 🖼️ **Login Page**  
@@ -74,14 +100,7 @@ npm run dev
 🖼️ **Biblioteca de Faturas**  
 ![Invoices](./public/screenshots/invoices.png)
 
-
-## 🚀 Melhorias Futuras
-
-- ✅ Melhor tipagem global nos serviços e componentes.
-- ✅ Testes completos com `Jest` e `React Testing Library`.
-- ✅ Validação com Zod nos inputs e formulários.
-- ✅ Acessibilidade (a11y) aprimorada.
-- ✅ Animações com framer-motion nos gráficos e interações.
+---
 
 ## ✅ Estado Atual do Projeto
 
@@ -89,4 +108,15 @@ npm run dev
 - [x] Dashboard com 4 cards e gráfico  
 - [x] Tela de faturas com filtro por mês e download  
 - [x] Visual escuro e responsivo  
-- [ ] Deploy da aplicação (em breve)
+- [x] Testes automatizados com cobertura mínima exigida  
+- [ ] Deploy da aplicação (em breve)  
+
+---
+
+## 🚀 Melhorias Futuras
+
+- Melhor tipagem global nos serviços e componentes.
+- Validação com Zod nos inputs e formulários.
+- Acessibilidade (a11y) aprimorada.
+- Animações com framer-motion nos gráficos e interações.
+- Loading states e UX refinado em chamadas assíncronas.

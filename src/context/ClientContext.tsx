@@ -5,7 +5,7 @@ interface ClientContextType {
   setClientNumber: (value: string) => void;
 }
 
-const ClientContext = createContext<ClientContextType | undefined>(undefined);
+export const ClientContext = createContext<ClientContextType | undefined>(undefined);
 
 export const ClientProvider = ({ children }: { children: ReactNode }) => {
   const [clientNumber, setClientNumber] = useState<string | null>(null);
