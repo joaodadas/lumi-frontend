@@ -15,9 +15,7 @@ import {
   getDashboardTotals,
   getMonthlyTotals,
 } from '@/services/dashboardService';
-import { getInvoicesByClient } from '@/services/invoiceService';
 import { DashboardTotals, MonthlyTotal } from '@/types/dashboard';
-import { Invoice } from '@/types/invoice';
 import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
