@@ -1,54 +1,102 @@
-# React + TypeScript + Vite
+# Lumi Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface web para consulta de faturas de energia elétrica e visualização de dados agregados de consumo e economia, baseada em gráficos e tabelas.
 
-Currently, two official plugins are available:
+✨ **Sobre este Projeto**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este é o **frontend do projeto Lumi**, uma plataforma que permite que usuários consultem suas faturas de energia elétrica através do número de instalação, visualizando informações como consumo, economia com GD e valores mensais. A interface foi construída com foco em simplicidade, visual escuro moderno e navegação intuitiva.
 
-## Expanding the ESLint configuration
+📦 **Produção (em breve)**: [https://lumi-frontend.vercel.app](https://lumi-frontend.vercel.app)  
+📸 **Capturas de Tela**: Ver seção _"📷 Prints da Aplicação"_
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🧰 Tecnologias
+
+- React + TypeScript  
+- Vite  
+- Tailwind CSS  
+- shadcn/ui  
+- Recharts  
+- React Router  
+- Context API  
+- Axios  
+- Jest (em configuração)
+
+---
+
+## 🔹 Como Rodar Localmente
+
+```bash
+# Clone o projeto
+git clone https://github.com/joaodadas/lumi-frontend.git
+
+# Acesse a pasta
+cd lumi-frontend
+
+# Instale as dependências
+npm install
+
+# Crie um arquivo .env e configure a base da API
+VITE_API_BASE_URL=https://lumi-backend-oj5j.onrender.com
+
+# Inicie o servidor de desenvolvimento
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🌐 Navegação da Aplicação
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### 🔐 Login
+- Página inicial com campo para digitar o número de instalação.
+- Ao submeter, a aplicação verifica se existem faturas para o cliente e redireciona para o Dashboard.
+
+### 📊 Dashboard
+- Exibe 4 cards com:
+  - Energia consumida (kWh)
+  - Energia compensada (kWh)
+  - Valor total sem GD (R$)
+  - Economia com GD (R$)
+- Gráfico de barras com consumo e economia mês a mês.
+- Botão para acessar a Biblioteca de Faturas.
+
+### 📚 Biblioteca de Faturas
+- Listagem de todas as faturas disponíveis para o cliente autenticado.
+- Filtro por mês.
+- Botão para download da fatura em PDF.
+
+---
+
+## 📷 Prints da Aplicação
+
+🖼️ **Login Page**  
+![Login](./public/screenshots/login.png)
+
+🖼️ **Dashboard Page**  
+![Dashboard](./public/screenshots/dashboard.png)
+
+🖼️ **Biblioteca de Faturas**  
+![Invoices](./public/screenshots/invoices.png)
+
+> As imagens devem ser adicionadas na pasta `public/screenshots/` para que esses links funcionem corretamente.
+
+---
+
+## 🚀 Melhorias Futuras
+
+- ✅ Melhor tipagem global nos serviços e componentes.
+- ✅ Testes completos com `Jest` e `React Testing Library`.
+- ✅ Validação com Zod nos inputs e formulários.
+- ✅ Acessibilidade (a11y) aprimorada.
+- ✅ Animações com framer-motion nos gráficos e interações.
+
+---
+
+## ✅ Estado Atual do Projeto
+
+- [x] Autenticação por número de instalação  
+- [x] Dashboard com 4 cards e gráfico  
+- [x] Tela de faturas com filtro por mês e download  
+- [x] Visual escuro e responsivo  
+- [ ] Deploy da aplicação (em breve)
